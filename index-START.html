@@ -59,6 +59,7 @@
       let timeUp = false;
       let score = 0;
       let name;
+      let mouseActive = false;
       const highscore = [];
       const user = {};
       const highscoreBtn = document.querySelector(".highscore-btn");
@@ -97,9 +98,11 @@
           timeUp = false;
           score = 0;
           peep();
+          mouseActive = true;
           setTimeout(() => {
             (timeUp = true), addUserToHighscore();
             localStorage.setItem("items", JSON.stringify(highscore));
+            mouseActive = false;
           }, 4000);
         } else {
           nameInput.classList.add("required");
@@ -111,11 +114,6 @@
         score++;
         this.classList.remove("up");
         scoreBoard.textContent = score;
-        // rotate hammer on click
-        mouse.classList.add("clicked");
-        setTimeout(() => {
-          mouse.classList.remove("clicked");
-        }, 70);
       }
 
       moles.forEach((mole) => mole.addEventListener("click", bonk));
@@ -142,6 +140,16 @@
       game.addEventListener("mousemove", (e) => {
         game.style.setProperty("--mouse-x", e.clientX + "px");
         game.style.setProperty("--mouse-y", e.clientY + "px");
+      });
+
+      document.addEventListener("click", () => {
+        if (mouseActive) {
+          // rotate hammer on click
+          mouse.classList.add("clicked");
+          setTimeout(() => {
+            mouse.classList.remove("clicked");
+          }, 70);
+        }
       });
     </script>
   </body>
