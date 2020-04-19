@@ -23,6 +23,7 @@
 
     <ul class="highscore-list"></ul>
     <main class="game">
+      <div class="mouse"></div>
       <div class="hole hole1">
         <div class="mole"></div>
       </div>
@@ -57,6 +58,8 @@
       const user = {};
       const highscoreBtn = document.querySelector(".highscore-btn");
       const highscoreList = document.querySelector(".highscore-list");
+      const game = document.querySelector(".game");
+      const mouse = document.querySelector(".mouse");
 
       function randomTime(min, max) {
         return Math.round(Math.random() * (max - min) - min);
@@ -110,12 +113,26 @@
           li.innerHTML += `${user.name} - ${user.points} points`;
         });
       }
+
+      // Starts the game
       startBtn.addEventListener("click", () => {
         name = nameInput.value; // gets the name
         startGame();
       });
 
       // highscoreBtn.addEventListener("click", () => highscore);
+      // Custom mouse inside game
+      game.addEventListener("mousemove", (e) => {
+        game.style.setProperty("--mouse-x", e.clientX + "px");
+        game.style.setProperty("--mouse-y", e.clientY + "px");
+      });
+      // rotate hammer on click
+      mouse.addEventListener("click", () => {
+        mouse.classList.add("clicked");
+        setTimeout(() => {
+          mouse.classList.remove("clicked");
+        }, 70);
+      });
     </script>
   </body>
 </html>

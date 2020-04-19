@@ -2,6 +2,7 @@ html {
   box-sizing: border-box;
   font-size: 10px;
   background: #ffc600;
+  height: 100vh;
 }
 
 *,
@@ -36,8 +37,27 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   margin: 0 auto;
+  border: 2px dashed teal;
+  padding: 10px;
+  border-radius: 20px;
+  cursor: none;
 }
-
+.mouse {
+  width: 80px;
+  height: 80px;
+  position: absolute;
+  left: var(--mouse-x);
+  top: var(--mouse-y);
+  background-image: url("http://www.clker.com/cliparts/c/b/b/e/11954217511527806368hammer_david_benjamin_01.svg.thumb.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: 3;
+  transition: 0.1s ease;
+  transform: rotate3d(0, 1, 0, -180deg);
+}
+.clicked {
+  transform: rotate3d(0, 1, 0, -180deg) rotate(45deg);
+}
 .hole {
   flex: 1 0 33.33%;
   overflow: hidden;
