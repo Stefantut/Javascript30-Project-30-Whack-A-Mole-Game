@@ -15,7 +15,12 @@
     <aside class="buttons">
       <form class="name-form">
         <label for="name">Your Name:</label><br />
-        <input type="text" id="name" name="name" placeholder="John Doe" /><br />
+        <input
+          type="text"
+          id="name"
+          name="name"
+          placeholder="Min 2 characters"
+        /><br />
       </form>
       <button class="start">Start!</button>
       <button class="highscore-btn">View Highscore</button>
@@ -76,7 +81,7 @@
       }
 
       function peep() {
-        const time = randomTime(200, 2000);
+        const time = randomTime(500, 2000);
         const hole = randomHole(holes);
         hole.classList.add("up");
         setTimeout(() => {
@@ -84,15 +89,21 @@
           if (!timeUp) peep();
         }, time);
       }
+
+      //Start Game
       function startGame() {
-        scoreBoard.textContent = 0;
-        timeUp = false;
-        score = 0;
-        peep();
-        setTimeout(() => {
-          (timeUp = true), addUserToHighscore();
-          // localStorage.setItem("items", JSON.stringify(highscore));
-        }, 8000);
+        if (nameInput.value.length >= 2) {
+          scoreBoard.textContent = 0;
+          timeUp = false;
+          score = 0;
+          peep();
+          setTimeout(() => {
+            (timeUp = true), addUserToHighscore();
+            localStorage.setItem("items", JSON.stringify(highscore));
+          }, 4000);
+        } else {
+          nameInput.classList.add("required");
+        }
       }
 
       function bonk(e) {
