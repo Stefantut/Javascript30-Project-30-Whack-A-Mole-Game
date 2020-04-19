@@ -18,8 +18,10 @@
         <input type="text" id="name" name="name" placeholder="John Doe" /><br />
       </form>
       <button class="start">Start!</button>
+      <button class="highscore-btn">View Highscore</button>
     </aside>
 
+    <ul class="highscore-list"></ul>
     <main class="game">
       <div class="hole hole1">
         <div class="mole"></div>
@@ -51,8 +53,10 @@
       let timeUp = false;
       let score = 0;
       let name;
-      let highscore = [];
+      const highscore = [];
       const user = {};
+      const highscoreBtn = document.querySelector(".highscore-btn");
+      const highscoreList = document.querySelector(".highscore-list");
 
       function randomTime(min, max) {
         return Math.round(Math.random() * (max - min) - min);
@@ -69,7 +73,7 @@
       }
 
       function peep() {
-        const time = randomTime(200, 1000);
+        const time = randomTime(200, 2000);
         const hole = randomHole(holes);
         hole.classList.add("up");
         setTimeout(() => {
@@ -77,17 +81,13 @@
           if (!timeUp) peep();
         }, time);
       }
-
       function startGame() {
         scoreBoard.textContent = 0;
         timeUp = false;
         score = 0;
         peep();
         setTimeout(() => {
-          (timeUp = true),
-            (user["name"] = name),
-            (user["points"] = score),
-            highscore.push(user); // when the game ends it will push the name and score to highscore array
+          (timeUp = true), addUserToHighscore();
         }, 4000);
       }
 
@@ -100,11 +100,22 @@
 
       moles.forEach((mole) => mole.addEventListener("click", bonk));
 
+      function addUserToHighscore() {
+        user["name"] = name;
+        user["points"] = score;
+        highscore.push(user); // when the game ends it will push the name and score to highscore array
+        highscore.forEach(function (user) {
+          let li = document.createElement("li");
+          highscoreList.appendChild(li);
+          li.innerHTML += `${user.name} - ${user.points} points`;
+        });
+      }
       startBtn.addEventListener("click", () => {
-        name = nameInput.value;
-        console.log(name);
+        name = nameInput.value; // gets the name
         startGame();
       });
+
+      // highscoreBtn.addEventListener("click", () => highscore);
     </script>
   </body>
 </html>
