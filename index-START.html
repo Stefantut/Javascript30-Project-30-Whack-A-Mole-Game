@@ -51,6 +51,8 @@
       let timeUp = false;
       let score = 0;
       let name;
+      let highscore = [];
+      const user = {};
 
       function randomTime(min, max) {
         return Math.round(Math.random() * (max - min) - min);
@@ -81,7 +83,12 @@
         timeUp = false;
         score = 0;
         peep();
-        setTimeout(() => (timeUp = true), 4000);
+        setTimeout(() => {
+          (timeUp = true),
+            (user["name"] = name),
+            (user["points"] = score),
+            highscore.push(user); // when the game ends it will push the name and score to highscore array
+        }, 4000);
       }
 
       function bonk(e) {
