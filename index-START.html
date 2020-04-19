@@ -91,7 +91,8 @@
         peep();
         setTimeout(() => {
           (timeUp = true), addUserToHighscore();
-        }, 4000);
+          // localStorage.setItem("items", JSON.stringify(highscore));
+        }, 8000);
       }
 
       function bonk(e) {
@@ -99,6 +100,11 @@
         score++;
         this.classList.remove("up");
         scoreBoard.textContent = score;
+        // rotate hammer on click
+        mouse.classList.add("clicked");
+        setTimeout(() => {
+          mouse.classList.remove("clicked");
+        }, 70);
       }
 
       moles.forEach((mole) => mole.addEventListener("click", bonk));
@@ -125,13 +131,6 @@
       game.addEventListener("mousemove", (e) => {
         game.style.setProperty("--mouse-x", e.clientX + "px");
         game.style.setProperty("--mouse-y", e.clientY + "px");
-      });
-      // rotate hammer on click
-      mouse.addEventListener("click", () => {
-        mouse.classList.add("clicked");
-        setTimeout(() => {
-          mouse.classList.remove("clicked");
-        }, 70);
       });
     </script>
   </body>
