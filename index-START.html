@@ -93,7 +93,7 @@
       }
 
       function peep() {
-        const time = randomTime(500, 2000);
+        const time = randomTime(200, 2000);
         const hole = randomHole(holes);
         hole.classList.add("up");
         setTimeout(() => {
@@ -155,7 +155,7 @@
       function addUserToHighscore() {
         user["name"] = name;
         user["points"] = score;
-        highscore.push(user); // when the game ends it will push the name and score to highscore array
+        highscore.push(user); // push the name and score to highscore array
         localStorage.setItem("highscore", JSON.stringify(highscore)); // saves new list to local storage
         highscoreList.querySelectorAll("*").forEach((item) => item.remove()); // deletes all li from list
         populateList(); // adds back all items - sorted and just top 5
@@ -199,8 +199,8 @@
       }
       // Populate HighscoreList from local storage
       function populateList() {
-        highscore.sort(compare);
-        const topFive = highscore.slice(0, 5);
+        highscore.sort(compare); // sorts items
+        const topFive = highscore.slice(0, 5); // Displays Top 5
         topFive.forEach(function (user) {
           let li = document.createElement("li");
           highscoreList.appendChild(li);
