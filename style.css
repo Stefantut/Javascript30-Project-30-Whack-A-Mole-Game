@@ -107,6 +107,7 @@ h1 {
 }
 .name-form #name {
   height: 25px;
+  text-transform: capitalize;
 }
 .start {
   margin-left: 20px;

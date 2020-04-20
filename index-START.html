@@ -160,7 +160,7 @@
         `${user.points}` == 1
           ? (li.innerHTML += `${user.name} - ${user.points} point`)
           : (li.innerHTML += `${user.name} - ${user.points} points`);
-        localStorage.setItem("highscore", JSON.stringify(highscore));
+        localStorage.setItem("highscore", JSON.stringify(highscore)); // saves new list to local storage
       }
 
       // Starts the game
@@ -172,6 +172,7 @@
       //show highscore
       highscoreBtn.addEventListener("click", () => {
         highscoreWrap.classList.add("isActive-highscore");
+        populateList();
       });
 
       //hide highscore
@@ -202,9 +203,7 @@
             ? (li.innerHTML += `${user.name} - ${user.points} point`)
             : (li.innerHTML += `${user.name} - ${user.points} points`);
         });
-        localStorage.setItem("highscore", JSON.stringify(highscore));
       }
-      populateList();
     </script>
   </body>
 </html>
