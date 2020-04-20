@@ -23,7 +23,9 @@
         /><br />
       </form>
       <button class="start">Start!</button>
-      <button class="highscore-btn">View Highscore</button>
+      <button class="highscore-btn">
+        View Highscore
+      </button>
     </aside>
 
     <main class="game">
@@ -49,6 +51,10 @@
     </main>
     <div class="highscore-wrap">
       <h3 class="title">Top 5 Highscore:</h3>
+      <div class="close-highscore">
+        <span class="line line--1"></span>
+        <span class="line line--2"></span>
+      </div>
       <ul class="highscore-list"></ul>
     </div>
 
@@ -66,7 +72,9 @@
       const highscore = JSON.parse(localStorage.getItem("highscore")) || [];
       const user = {};
       const highscoreBtn = document.querySelector(".highscore-btn");
+      const highscoreCloseBtn = document.querySelector(".close-highscore");
       const highscoreList = document.querySelector(".highscore-list");
+      const highscoreWrap = document.querySelector(".highscore-wrap");
       const game = document.querySelector(".game");
       const mouse = document.querySelector(".mouse");
 
@@ -136,7 +144,15 @@
         startGame();
       });
 
-      // highscoreBtn.addEventListener("click", () => highscore);
+      //show highscore
+      highscoreBtn.addEventListener("click", () => {
+        highscoreWrap.classList.add("isActive-highscore");
+      });
+
+      //hide highscore
+      highscoreCloseBtn.addEventListener("click", () => {
+        highscoreWrap.classList.remove("isActive-highscore");
+      });
       // Custom mouse inside game
       game.addEventListener("mousemove", (e) => {
         game.style.setProperty("--mouse-x", e.clientX + "px");
