@@ -113,31 +113,35 @@
           setTimeout(() => {
             (timeUp = true), addUserToHighscore();
             mouseActive = false;
-            alert(
-              `${user.points}` == 1
-                ? "Sorry, " +
-                    `${user.name}` +
-                    ", you have just " +
-                    `${user.points}` +
-                    " point."
-                : `${user.points}` == 0
-                ? "Sorry, " +
-                  `${user.name}` +
-                  ", Looks like you didn't played. You have " +
-                  `${user.points}` +
-                  " points."
-                : "Good job " +
-                  `${user.name}` +
-                  ", you have " +
-                  `${user.points}` +
-                  " points."
-            );
+            alertUser();
           }, 4000);
         } else {
           nameInput.classList.add("required");
         }
       }
 
+      // Alert user with name & points
+      function alertUser() {
+        alert(
+          `${user.points}` == 1
+            ? "Sorry, " +
+                `${user.name}` +
+                ", you have just " +
+                `${user.points}` +
+                " point."
+            : `${user.points}` == 0
+            ? "Sorry, " +
+              `${user.name}` +
+              ", Looks like you didn't played. You have " +
+              `${user.points}` +
+              " points."
+            : "Good job " +
+              `${user.name}` +
+              ", you have " +
+              `${user.points}` +
+              " points."
+        );
+      }
       function bonk(e) {
         if (!e.isTrusted) return;
         score++;
@@ -153,7 +157,9 @@
         highscore.push(user); // when the game ends it will push the name and score to highscore array
         let li = document.createElement("li");
         highscoreList.appendChild(li);
-        li.innerHTML += `${user.name} - ${user.points} points`;
+        `${user.points}` == 1
+          ? (li.innerHTML += `${user.name} - ${user.points} point`)
+          : (li.innerHTML += `${user.name} - ${user.points} points`);
         localStorage.setItem("highscore", JSON.stringify(highscore));
       }
 
@@ -192,7 +198,9 @@
         highscore.forEach(function (user) {
           let li = document.createElement("li");
           highscoreList.appendChild(li);
-          li.innerHTML += `${user.name} - ${user.points} points`;
+          `${user.points}` == 1
+            ? (li.innerHTML += `${user.name} - ${user.points} point`)
+            : (li.innerHTML += `${user.name} - ${user.points} points`);
         });
         localStorage.setItem("highscore", JSON.stringify(highscore));
       }
