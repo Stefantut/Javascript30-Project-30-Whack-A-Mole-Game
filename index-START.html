@@ -26,7 +26,6 @@
       <button class="highscore-btn">View Highscore</button>
     </aside>
 
-    <ul class="highscore-list"></ul>
     <main class="game">
       <div class="mouse"></div>
       <div class="hole hole1">
@@ -48,6 +47,10 @@
         <div class="mole"></div>
       </div>
     </main>
+    <div class="highscore-wrap">
+      <h3 class="title">Top 5 Highscore:</h3>
+      <ul class="highscore-list"></ul>
+    </div>
 
     <script>
       const holes = document.querySelectorAll(".hole");
@@ -101,8 +104,6 @@
           mouseActive = true;
           setTimeout(() => {
             (timeUp = true), addUserToHighscore();
-            localStorage.setItem("highscore", JSON.stringify(highscore));
-            console.log(highscore);
             mouseActive = false;
           }, 4000);
         } else {
@@ -123,11 +124,10 @@
         user["name"] = name;
         user["points"] = score;
         highscore.push(user); // when the game ends it will push the name and score to highscore array
-        highscore.forEach(function (user) {
-          let li = document.createElement("li");
-          highscoreList.appendChild(li);
-          li.innerHTML += `${user.name} - ${user.points} points`;
-        });
+        let li = document.createElement("li");
+        highscoreList.appendChild(li);
+        li.innerHTML += `${user.name} - ${user.points} points`;
+        localStorage.setItem("highscore", JSON.stringify(highscore));
       }
 
       // Starts the game
@@ -153,11 +153,15 @@
         }
       });
       //Populate HighscoreList from local storage
-      highscore.forEach(function (user) {
-        let li = document.createElement("li");
-        highscoreList.appendChild(li);
-        li.innerHTML += `${user.name} - ${user.points} points`;
-      });
+      function populateList() {
+        highscore.forEach(function (user) {
+          let li = document.createElement("li");
+          highscoreList.appendChild(li);
+          li.innerHTML += `${user.name} - ${user.points} points`;
+        });
+        localStorage.setItem("highscore", JSON.stringify(highscore));
+      }
+      populateList();
     </script>
   </body>
 </html>

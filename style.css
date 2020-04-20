@@ -124,3 +124,21 @@ h1 {
 .required {
   border: 2px solid red;
 }
+
+.highscore-wrap {
+  text-align: center;
+}
+
+.highscore-wrap .title {
+  font-size: 30px;
+  text-decoration: underline;
+  margin-bottom: 10px;
+}
+.highscore-list {
+  padding: 0;
+}
+.highscore-list li {
+  list-style-type: none;
+  font-weight: bold;
+  font-size: 22px;
+}
