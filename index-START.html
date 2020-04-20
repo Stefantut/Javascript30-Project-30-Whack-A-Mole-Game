@@ -60,7 +60,7 @@
       let score = 0;
       let name;
       let mouseActive = false;
-      const highscore = [];
+      const highscore = JSON.parse(localStorage.getItem("highscore")) || [];
       const user = {};
       const highscoreBtn = document.querySelector(".highscore-btn");
       const highscoreList = document.querySelector(".highscore-list");
@@ -101,7 +101,8 @@
           mouseActive = true;
           setTimeout(() => {
             (timeUp = true), addUserToHighscore();
-            localStorage.setItem("items", JSON.stringify(highscore));
+            localStorage.setItem("highscore", JSON.stringify(highscore));
+            console.log(highscore);
             mouseActive = false;
           }, 4000);
         } else {
@@ -150,6 +151,12 @@
             mouse.classList.remove("clicked");
           }, 70);
         }
+      });
+      //Populate HighscoreList from local storage
+      highscore.forEach(function (user) {
+        let li = document.createElement("li");
+        highscoreList.appendChild(li);
+        li.innerHTML += `${user.name} - ${user.points} points`;
       });
     </script>
   </body>
