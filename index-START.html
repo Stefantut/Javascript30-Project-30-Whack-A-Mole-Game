@@ -172,7 +172,6 @@
       //show highscore
       highscoreBtn.addEventListener("click", () => {
         highscoreWrap.classList.add("isActive-highscore");
-        populateList();
       });
 
       //hide highscore
@@ -194,7 +193,7 @@
           }, 70);
         }
       });
-      //Populate HighscoreList from local storage
+      // Populate HighscoreList from local storage
       function populateList() {
         highscore.forEach(function (user) {
           let li = document.createElement("li");
@@ -204,6 +203,7 @@
             : (li.innerHTML += `${user.name} - ${user.points} points`);
         });
       }
+      populateList();
     </script>
   </body>
 </html>
