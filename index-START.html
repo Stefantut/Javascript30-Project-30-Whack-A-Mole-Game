@@ -113,6 +113,25 @@
           setTimeout(() => {
             (timeUp = true), addUserToHighscore();
             mouseActive = false;
+            alert(
+              `${user.points}` == 1
+                ? "Sorry, " +
+                    `${user.name}` +
+                    ", you have just " +
+                    `${user.points}` +
+                    " point."
+                : `${user.points}` == 0
+                ? "Sorry, " +
+                  `${user.name}` +
+                  ", Looks like you didn't played. You have " +
+                  `${user.points}` +
+                  " points."
+                : "Good job " +
+                  `${user.name}` +
+                  ", you have " +
+                  `${user.points}` +
+                  " points."
+            );
           }, 4000);
         } else {
           nameInput.classList.add("required");
