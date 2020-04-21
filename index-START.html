@@ -67,10 +67,10 @@
       let lastHole;
       let timeUp = false;
       let score = 0;
+      let user = {};
       let name;
       let mouseActive = false;
       const highscore = JSON.parse(localStorage.getItem("highscore")) || [];
-      const user = {};
       const highscoreBtn = document.querySelector(".highscore-btn");
       const highscoreCloseBtn = document.querySelector(".close-highscore");
       const highscoreList = document.querySelector(".highscore-list");
@@ -101,7 +101,16 @@
           if (!timeUp) peep();
         }, time);
       }
-
+      // adds last user to highscore
+      function addUserToHighscore() {
+        user["name"] = name;
+        user["points"] = score;
+        highscore.push(user);
+        // push the name and score to highscore array
+        localStorage.setItem("highscore", JSON.stringify(highscore)); // saves new list to local storage
+        highscoreList.querySelectorAll("*").forEach((item) => item.remove()); // deletes all li from list
+        populateList(); // adds back all items - sorted and just top 5
+      }
       //Start Game
       function startGame() {
         scoreBoard.textContent = 0;
@@ -111,15 +120,31 @@
           peep();
           mouseActive = true;
           setTimeout(() => {
-            (timeUp = true), addUserToHighscore();
-            mouseActive = false;
-            alertUser();
-            nameInput.value = "";
+            (timeUp = true),
+              addUserToHighscore(),
+              (mouseActive = false),
+              alertUser(),
+              (nameInput.value = "");
+            user = {}; // clears user value after the game finishes
           }, 4000);
         } else {
           nameInput.classList.add("required");
         }
       }
+      // Populate HighscoreList from local storage
+      function populateList() {
+        highscore.sort(compare); // sorts items
+        const topFive = highscore.slice(0, 5); // Displays Top 5
+        topFive.forEach(function (user) {
+          let li = document.createElement("li");
+          highscoreList.appendChild(li);
+          `${user.points}` == 1
+            ? (li.innerHTML += `${user.name} - ${user.points} point`)
+            : (li.innerHTML += `${user.name} - ${user.points} points`);
+        });
+      }
+
+      populateList();
 
       // Alert user with name & points
       function alertUser() {
@@ -151,17 +176,6 @@
       }
 
       moles.forEach((mole) => mole.addEventListener("click", bonk));
-
-      function addUserToHighscore() {
-        user["name"] = name;
-        user["points"] = score;
-        const newHighscore = new Array(highscore.push(user));
-        console.log(newHighscore);
-        // push the name and score to highscore array
-        localStorage.setItem("highscore", JSON.stringify(highscore)); // saves new list to local storage
-        highscoreList.querySelectorAll("*").forEach((item) => item.remove()); // deletes all li from list
-        populateList(); // adds back all items - sorted and just top 5
-      }
 
       // Starts the game
       startBtn.addEventListener("click", () => {
@@ -199,19 +213,6 @@
         if (b.points > a.points) return 1;
         return 0;
       }
-      // Populate HighscoreList from local storage
-      function populateList() {
-        highscore.sort(compare); // sorts items
-        const topFive = highscore.slice(0, 5); // Displays Top 5
-        topFive.forEach(function (user) {
-          let li = document.createElement("li");
-          highscoreList.appendChild(li);
-          `${user.points}` == 1
-            ? (li.innerHTML += `${user.name} - ${user.points} point`)
-            : (li.innerHTML += `${user.name} - ${user.points} points`);
-        });
-      }
-      populateList();
     </script>
   </body>
 </html>
