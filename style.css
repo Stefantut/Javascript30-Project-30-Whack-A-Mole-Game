@@ -95,7 +95,7 @@ h1 {
 .buttons {
   display: flex;
   justify-content: center;
-  margin: 20px 0;
+  margin: 10px 0 20px 0;
 }
 .name-form {
   display: flex;
@@ -117,11 +117,23 @@ h1 {
   margin-left: 20px;
   padding: 0 10px;
   color: floralwhite;
-  background-color: darkmagenta;
+  background-color: teal;
   border: none;
   transition: 0.2s ease;
 }
 .start:hover {
+  cursor: pointer;
+  background-color: green;
+}
+.start-long {
+  margin-left: 20px;
+  padding: 0 10px;
+  color: floralwhite;
+  background-color: darkmagenta;
+  border: none;
+  transition: 0.2s ease;
+}
+.start-long:hover {
   cursor: pointer;
   background-color: crimson;
 }
@@ -189,4 +201,11 @@ h1 {
   list-style-type: none;
   font-weight: bold;
   font-size: 22px;
+}
+
+.time-left-wrap {
+  text-align: center;
+  font-size: 26px;
+  color: crimson;
+  font-weight: bold;
 }
