@@ -128,7 +128,6 @@
             user = {}; // clears user value after the game finishes
           }, 4000);
         } else {
-          nameInput.classList.add("required");
         }
       }
       // Populate HighscoreList from local storage
@@ -213,6 +212,12 @@
         if (b.points > a.points) return 1;
         return 0;
       }
+      nameInput.addEventListener("keydown", () => {
+        console.log(nameInput.value.length);
+        nameInput.value.length < 1
+          ? nameInput.classList.add("required")
+          : nameInput.classList.remove("required");
+      });
     </script>
   </body>
 </html>

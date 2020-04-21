@@ -110,6 +110,9 @@ h1 {
   height: 25px;
   text-transform: capitalize;
 }
+.name-form #name:focus {
+  outline: thin;
+}
 .start {
   margin-left: 20px;
   padding: 0 10px;
@@ -124,7 +127,7 @@ h1 {
 }
 
 .required {
-  border: 2px solid red;
+  border: 3px solid red;
 }
 .highscore-btn {
   margin-left: 20px;
