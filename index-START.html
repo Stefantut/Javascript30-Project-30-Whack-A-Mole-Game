@@ -104,11 +104,11 @@
 
       //Start Game
       function startGame() {
+        scoreBoard.textContent = 0;
+        timeUp = false;
+        score = 0;
+        peep();
         if (nameInput.value.length >= 2) {
-          scoreBoard.textContent = 0;
-          timeUp = false;
-          score = 0;
-          peep();
           mouseActive = true;
           setTimeout(() => {
             (timeUp = true), addUserToHighscore();
@@ -155,7 +155,9 @@
       function addUserToHighscore() {
         user["name"] = name;
         user["points"] = score;
-        highscore.push(user); // push the name and score to highscore array
+        const newHighscore = new Array(highscore.push(user));
+        console.log(newHighscore);
+        // push the name and score to highscore array
         localStorage.setItem("highscore", JSON.stringify(highscore)); // saves new list to local storage
         highscoreList.querySelectorAll("*").forEach((item) => item.remove()); // deletes all li from list
         populateList(); // adds back all items - sorted and just top 5
