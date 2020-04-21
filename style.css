@@ -52,13 +52,13 @@ h1 {
   background-size: cover;
   background-repeat: no-repeat;
   transition: 0.05s ease-in-out;
-  transform: rotate3d(0, 1, 0, -180deg) translate(20px, -20px);
+  transform: rotate3d(0, 1, 0, -180deg) translate(20px, -20px) scale(1);
   z-index: 1;
   /* Fix for z-index */
   pointer-events: none;
 }
 .clicked {
-  transform: rotate3d(0, 1, 0, -180deg) rotate(70deg);
+  transform: rotate3d(0, 1, 0, -180deg) rotate(70deg) scale(1.5);
 }
 .hole {
   flex: 1 0 33.33%;
