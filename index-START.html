@@ -20,6 +20,7 @@
           id="name"
           name="name"
           placeholder="Min 2 characters"
+          required
         /><br />
       </form>
       <button class="start">Start!</button>
@@ -124,10 +125,12 @@
               addUserToHighscore(),
               (mouseActive = false),
               alertUser(),
-              (nameInput.value = "");
-            user = {}; // clears user value after the game finishes
+              (nameInput.value = ""),
+              (startBtn.textContent = "Start another game!"),
+              (user = {}); // clears user value after the game finishes
           }, 4000);
         } else {
+          nameInput.classList.add("required");
         }
       }
       // Populate HighscoreList from local storage
@@ -212,6 +215,8 @@
         if (b.points > a.points) return 1;
         return 0;
       }
+
+      // name input validation
       nameInput.addEventListener("keydown", () => {
         console.log(nameInput.value.length);
         nameInput.value.length < 1
