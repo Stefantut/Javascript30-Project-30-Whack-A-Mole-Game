@@ -126,11 +126,15 @@
         name = nameInput.value; // gets the name
         // Validates name field first
         if (nameInput.value.length >= 2) {
-          timeLeft.textContent = seconds + " seconds."; //display seconds left
+          seconds == 1
+            ? (timeLeft.textContent = seconds + " second")
+            : (timeLeft.textContent = seconds + " seconds"); //display seconds left
           // updates seconds left
           let interval = setInterval(() => {
             seconds > 0 ? seconds-- : clearInterval(interval);
-            timeLeft.textContent = seconds + " seconds.";
+            seconds == 1
+              ? (timeLeft.textContent = seconds + " second")
+              : (timeLeft.textContent = seconds + " seconds");
           }, 1000);
           timeUp = false;
           peep();
