@@ -105,10 +105,10 @@
       //Start Game
       function startGame() {
         scoreBoard.textContent = 0;
-        timeUp = false;
         score = 0;
-        peep();
         if (nameInput.value.length >= 2) {
+          timeUp = false;
+          peep();
           mouseActive = true;
           setTimeout(() => {
             (timeUp = true), addUserToHighscore();
