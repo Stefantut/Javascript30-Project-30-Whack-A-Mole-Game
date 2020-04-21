@@ -23,10 +23,14 @@
           required
         /><br />
       </form>
-      <button class="start">Start!</button>
+      <button class="start">Start Short Game!</button>
+      <button class="start-long">Start Long Game!</button>
       <button class="highscore-btn">
         View Highscore
       </button>
+      <div class="time-left-wrap">
+        Time left:<span class="time-left"></span>
+      </div>
     </aside>
 
     <main class="game">
@@ -65,11 +69,13 @@
       const moles = document.querySelectorAll(".mole");
       const nameInput = document.querySelector("#name");
       const startBtn = document.querySelector(".start");
+      const startLongBtn = document.querySelector(".start-long");
       let lastHole;
       let timeUp = false;
       let score = 0;
       let user = {};
       let name;
+      let gameTime = 4000;
       let mouseActive = false;
       const highscore = JSON.parse(localStorage.getItem("highscore")) || [];
       const highscoreBtn = document.querySelector(".highscore-btn");
@@ -78,6 +84,7 @@
       const highscoreWrap = document.querySelector(".highscore-wrap");
       const game = document.querySelector(".game");
       const mouse = document.querySelector(".mouse");
+      const timeLeft = document.querySelector(".time-left");
 
       function randomTime(min, max) {
         return Math.round(Math.random() * (max - min) - min);
@@ -112,26 +119,37 @@
         highscoreList.querySelectorAll("*").forEach((item) => item.remove()); // deletes all li from list
         populateList(); // adds back all items - sorted and just top 5
       }
+
       //Start Game
       function startGame() {
+        let seconds = ("" + gameTime)[0]; // converts interval to 1 digit
         scoreBoard.textContent = 0;
         score = 0;
+        name = nameInput.value; // gets the name
+        // Validates name field first
         if (nameInput.value.length >= 2) {
+          timeLeft.textContent = seconds + " seconds."; //display seconds left
+          // updates seconds left
+          let interval = setInterval(() => {
+            seconds > 0 ? seconds-- : clearInterval(interval);
+            timeLeft.textContent = seconds + " seconds.";
+          }, 1000);
           timeUp = false;
           peep();
           mouseActive = true;
-          setTimeout(() => {
-            (timeUp = true),
-              addUserToHighscore(),
-              (mouseActive = false),
-              alertUser(),
-              (nameInput.value = ""),
-              (startBtn.textContent = "Start another game!"),
-              (user = {}); // clears user value after the game finishes
-          }, 4000);
+          let timeout = setTimeout(resetForm, gameTime); // will set when the game stops and will reset evrything
         } else {
           nameInput.classList.add("required");
         }
+      }
+      // Reset form
+      function resetForm() {
+        (timeUp = true),
+          addUserToHighscore(),
+          (mouseActive = false),
+          alertUser(),
+          (nameInput.value = ""),
+          (user = {}); // clears user value after the game finishes
       }
       // Populate HighscoreList from local storage
       function populateList() {
@@ -148,6 +166,15 @@
 
       populateList();
 
+      //Short game
+      function startShortGame() {
+        gameTime = 4000;
+        startGame();
+      }
+      function startLongGame() {
+        gameTime = 8000;
+        startGame();
+      }
       // Alert user with name & points
       function alertUser() {
         alert(
@@ -179,12 +206,14 @@
 
       moles.forEach((mole) => mole.addEventListener("click", bonk));
 
-      // Starts the game
+      // Starts the short game
       startBtn.addEventListener("click", () => {
-        name = nameInput.value; // gets the name
-        startGame();
+        startShortGame();
       });
-
+      //Advanced level
+      startLongBtn.addEventListener("click", () => {
+        startLongGame();
+      });
       //show highscore
       highscoreBtn.addEventListener("click", () => {
         highscoreWrap.classList.add("isActive-highscore");
@@ -218,7 +247,6 @@
 
       // name input validation
       nameInput.addEventListener("keydown", () => {
-        console.log(nameInput.value.length);
         nameInput.value.length < 1
           ? nameInput.classList.add("required")
           : nameInput.classList.remove("required");
