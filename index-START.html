@@ -107,6 +107,7 @@
           if (!timeUp) peep();
         }, time);
       }
+
       // adds last user to highscore
       function addUserToHighscore() {
         user["name"] = name;
@@ -212,7 +213,7 @@
       startBtn.addEventListener("click", () => {
         startShortGame();
       });
-      //Advanced level
+      //Long Game
       startLongBtn.addEventListener("click", () => {
         startLongGame();
       });
